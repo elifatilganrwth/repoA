@@ -1,0 +1,30 @@
+name: Dummy Build Documentation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create dummy documentation
+        run: |
+          mkdir -p dummy-html
+          echo "<h1>Dummy documentation</h1>" > dummy-html/index.html
+
+      - name: Create dummy PR number
+        run: |
+          echo "123" > pr-number
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: dummy-html/
+
+      - name: Upload PR number artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-number
+          path: pr-number
