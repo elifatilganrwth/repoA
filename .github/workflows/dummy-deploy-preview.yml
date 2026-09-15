@@ -38,7 +38,7 @@ jobs:
         run: |
           PR_NUMBER=$(cat ./pr-number)
           echo "value=$PR_NUMBER" >> $GITHUB_OUTPUT
-            - name: Checkout repoB
+      - name: Checkout repoB
         uses: actions/checkout@v4
         with:
           repository: elifatilganrwth/repoB
