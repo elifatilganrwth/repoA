@@ -33,11 +33,16 @@ jobs:
           path: downloaded-html
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Read pr-number
+        id: read-pr-number
+        run: |
+          PR_NUMBER=$(cat ./pr-number)
+          echo "value=$PR_NUMBER" >> $GITHUB_OUTPUT
 
       - name: Inspect downloaded artifacts
         run: |
-          echo "PR number:"
-          cat pr-number
-
+          echo "PR number from step output:"
+          echo "${{ steps.read-pr-number.outputs.value }}"
+          
           echo "Downloaded documentation:"
           find downloaded-html -type f
