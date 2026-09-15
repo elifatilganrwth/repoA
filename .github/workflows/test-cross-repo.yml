@@ -14,15 +14,15 @@ jobs:
           repository: elifatilganrwth/repoB
           token: ${{ secrets.REPOB_TOKEN }}
           ref: main
-          path: repoB
+          path: gh-pages
 
       - name: Create test file
         run: |
-          cd repoB
+          cd gh-pages
           echo "Created by a GitHub Action running in repoA" > action-test.txt
 
       - name: Commit and push
-        working-directory: repoB
+        working-directory: gh-pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
