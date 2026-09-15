@@ -62,4 +62,4 @@ jobs:
           echo "${{ steps.read-pr-number.outputs.value }}"
           
           echo "Downloaded documentation:"
-          find downloaded-html -type f
+          find ${{ runner.temp }}/html -type f
