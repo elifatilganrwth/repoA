@@ -1,0 +1,17 @@
+name: Dummy Deploy Preview
+
+on:
+  workflow_run:
+    workflows: ["Dummy Build Documentation"]
+    types: [completed]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show triggering workflow information
+        run: |
+          echo "Run ID: ${{ github.event.workflow_run.id }}"
+          echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "Original event: ${{ github.event.workflow_run.event }}"
