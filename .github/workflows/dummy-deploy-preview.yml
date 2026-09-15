@@ -30,7 +30,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: documentation
-          path: downloaded-html
+          path: ${{ runner.temp }}/html
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Read pr-number
@@ -38,6 +38,23 @@ jobs:
         run: |
           PR_NUMBER=$(cat ./pr-number)
           echo "value=$PR_NUMBER" >> $GITHUB_OUTPUT
+            - name: Checkout repoB
+        uses: actions/checkout@v4
+        with:
+          repository: elifatilganrwth/repoB
+          token: ${{ secrets.REPOB_TOKEN }}
+          ref: main
+          path: gh-pages
+
+      - name: Stage preview into working tree
+        run: |
+          cd gh-pages
+          mkdir -p pull-requests
+          cd pull-requests
+          rm -rf "${{ steps.read-pr-number.outputs.value }}"
+          mkdir -p "${{ steps.read-pr-number.outputs.value }}"
+          cd "${{ steps.read-pr-number.outputs.value }}"
+          cp -r ${{ runner.temp }}/html/. .
 
       - name: Inspect downloaded artifacts
         run: |
